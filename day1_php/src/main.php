@@ -12,19 +12,10 @@ foreach ($lines as $line) {
     $ticks = (int)substr($line, 1);
     $ticks = $ticks % 100;
 
-    if ($line[0] === 'R') {
-        if ($total + $ticks > 99) {
-            $total = $total + $ticks - 100;
-        } else {
-            $total = $total + $ticks;
-        }
-    } else {
-        if ($total - $ticks < 0) {
-            $total = $total - $ticks + 100;
-        } else {
-            $total = $total - $ticks;
-        }
-    }
+    $total = ($line[0] === 'R')
+        ? ($total + $ticks) % 100
+        : ($total - $ticks + 100) % 100;
+
     if ($total === 0) {
         $count++;
     }
