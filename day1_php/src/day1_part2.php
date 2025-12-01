@@ -24,8 +24,6 @@ foreach ($lines as $line) {
     }
 }
 
-echo "Count: $count\n";
-
 // time in microseconds
 $time = (microtime(true) - $time_start) * 1_000_000;
 echo "Time: $time µs\n";
