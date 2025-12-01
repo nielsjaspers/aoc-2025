@@ -4,6 +4,11 @@ This README is for my [Advent of Code 2025](https://adventofcode.com/2025) solut
 This year I'm taking on a challenge together with [levi-ivel](https://github.com/levi-ivel).
 Since Advent of Code has 12 days this year, we'll use a different language each day.
 
+This repo will be a live repo these weeks, where I'll share my solutions and thoughts on the puzzles.
+
+> [!NOTE]
+>  _CURRENT LANGUAGE: PHP_
+
 ## 12 Days, 12 Languages
 The plan is as follows:
 
@@ -23,7 +28,8 @@ We have a wheel with 12 languages
 
 Every day we take turns spinning the wheel, and we have to complete that day's challenge in that language. The next day, the next person gets to spin, and so on.
 
-The goal is to find the fastest, most optimal solution in the designated language, not the simplest solution you can produce at release time to be the first to submit.
+The goal is to find the fastest, most optimal solution in the designated language, not the simplest solution you can produce at release time to be the first to submit. 
+The solution cannot be updated after 24 hours.
 
 ## The Golden Rule
 - Solutions should be written by hand, not by AI.
