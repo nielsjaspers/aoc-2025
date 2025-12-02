@@ -1,36 +1,25 @@
 local time_start = os.clock()
 
-local function split(str, delimiter)
-    local result = {}
-    local start = 1
-    local delimiter_pos = string.find(str, delimiter, start, true)
-    
-    while delimiter_pos do
-        table.insert(result, string.sub(str, start, delimiter_pos - 1))
-        start = delimiter_pos + 1
-        delimiter_pos = string.find(str, delimiter, start, true)
+-- precompute powers of 10 cache to avoid repeated math.pow() calls
+-- optimizes repeated calls to math.pow(10, k)
+local pow10_cache = {}
+local function pow10(n)
+    if not pow10_cache[n] then
+        pow10_cache[n] = math.pow(10, n)
     end
-    
-    if start <= #str then
-        table.insert(result, string.sub(str, start))
-    end
-    
-    return result
+    return pow10_cache[n]
 end
 
 local file = io.open("data/day2/day2.txt", "r")
 
-local numbers = {}
+local total = 0
 
 if file then
     local line = file:read("*line")
-    -- print(line)
     if line then
-        local ranges = split(line, ",")
-        for _, range in ipairs(ranges) do
-            local dash_pos = string.find(range, "-")
-            local s = tonumber(string.sub(range, 1, dash_pos - 1)) -- start string
-            local e = tonumber(string.sub(range, dash_pos + 1))    -- end string
+        for s_str, e_str in line:gmatch("(%d+)-(%d+)") do
+            local s = tonumber(s_str)  -- start number
+            local e = tonumber(e_str)  -- end number
             
             -- instead of checking every number in the range (which can be millions, btw),
             -- we generate only numbers where the left half equals the right half.
@@ -51,37 +40,37 @@ if file then
             --   - 6 digits: n × 1001 (n=100..999) → 100100, 101101, ..., 999999
             --
             -- so we figure out which digit counts could produce numbers in our range,
-            -- then generate all candidates of that form and check if they're in range.
+            -- then generate all candidates of that form that fall within the range.
             -- way faster than checking millions of numbers one by one! (thank you lua for being so slow)
 
-            local min_digits = math.floor(math.log10(s)) + 1  -- minimum digits needed for s
-            local max_digits = math.floor(math.log10(e)) + 1  -- maximum digits needed for e
+            -- use string length instead of math.log10() for digit counting
+            -- this is faster for integer digit counting and avoids floating point operations
+            local min_digits = #s_str  -- minimum digits needed for s
+            local max_digits = #e_str  -- maximum digits needed for e
             
             for d = min_digits, max_digits do
                 if d % 2 == 0 then
                     local k = d / 2
-                    local multiplier = math.pow(10, k) + 1  -- e.g., for k=2: 10^2 + 1 = 101
+                    local multiplier = pow10(k) + 1  -- e.g. for k=2: 10^2 + 1 = 101
                     
-                    local min_n = math.pow(10, k - 1)  -- smallest k-digit number (e.g., k=2: 10)
-                    local max_n = math.pow(10, k) - 1  -- largest k-digit number (e.g., k=2: 99)
+                    local min_n = pow10(k - 1)  -- smallest k-digit number (e.g. k=2: 10)
+                    local max_n = pow10(k) - 1  -- largest k-digit number (e.g. k=2: 99)
                     
-                    -- generate all numbers of this form that are in range [s, e] to avoid generating numbers that are out of range
+                    -- compute tight bounds: only generate n values that produce candidates in range [s, e]
+                    -- since candidate = n × multiplier, we need s ≤ n × multiplier ≤ e
+                    -- this gives us: s/multiplier ≤ n ≤ e/multiplier
+                    -- we clamp this to the valid n range [min_n, max_n] to avoid generating out-of-range numbers
                     local start_n = math.max(min_n, math.ceil(s / multiplier))
                     local end_n = math.min(max_n, math.floor(e / multiplier))
                     
                     for n = start_n, end_n do
-                        local candidate = n * multiplier
-                        table.insert(numbers, candidate)
+                        total = total + (n * multiplier)
                     end
                 end
             end
         end
     end
-end
-
-local total = 0
-for _, number in ipairs(numbers) do
-    total = total + number
+    file:close()
 end
 
 print(total)
