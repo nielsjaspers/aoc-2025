@@ -102,16 +102,15 @@ if file then
                             local min_p = math.pow(10, k - 1)
                             local max_p = math.pow(10, k) - 1
                             
-                            for p = min_p, max_p do
+                            -- set start and end of pattern to be in range [s, e] to avoid generating numbers that are out of range
+                            local start_p = math.max(min_p, math.ceil(s / multiplier))
+                            local end_p = math.min(max_p, math.floor(e / multiplier))
+                            
+                            for p = start_p, end_p do
                                 local candidate = p * multiplier
-                                
-                                if candidate >= s and candidate <= e then
-                                    if not seen[candidate] then
-                                        seen[candidate] = true
-                                        table.insert(numbers, candidate)
-                                    end
-                                elseif candidate > e then
-                                    break
+                                if not seen[candidate] then
+                                    seen[candidate] = true
+                                    table.insert(numbers, candidate)
                                 end
                             end
                         end
