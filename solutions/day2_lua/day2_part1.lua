@@ -65,16 +65,13 @@ if file then
                     local min_n = math.pow(10, k - 1)  -- smallest k-digit number (e.g., k=2: 10)
                     local max_n = math.pow(10, k) - 1  -- largest k-digit number (e.g., k=2: 99)
                     
-                    -- generate all numbers of this form
-                    for n = min_n, max_n do
-                        local candidate = n * multiplier  -- e.g., n=12, multiplier=101: 12*101 = 1212
-                        
-                        -- only check if it's in our range
-                        if candidate >= s and candidate <= e then
-                            table.insert(numbers, candidate)
-                        elseif candidate > e then
-                            break
-                        end
+                    -- generate all numbers of this form that are in range [s, e] to avoid generating numbers that are out of range
+                    local start_n = math.max(min_n, math.ceil(s / multiplier))
+                    local end_n = math.min(max_n, math.floor(e / multiplier))
+                    
+                    for n = start_n, end_n do
+                        local candidate = n * multiplier
+                        table.insert(numbers, candidate)
                     end
                 end
             end
