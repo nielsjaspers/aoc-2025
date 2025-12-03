@@ -7,9 +7,9 @@ Since Advent of Code has 12 days this year, we'll use a different language each 
 This repo will be a live repo these weeks, where I'll share my solutions and thoughts on the puzzles.
 
 > [!NOTE]
->  _CURRENT LANGUAGE: **LUA**_
+>  _CURRENT LANGUAGE: **Python**_
 >
-> Languages done; PHP
+> Languages done; PHP, Lua
 
 ## 12 Days, 12 Languages
 The plan is as follows:
