@@ -7,30 +7,25 @@ def sortDigits(line: str) -> int:
     num2 = 0
     n = len(line)
 
-    for i in range(1, n):
+    for i in range(1, n - 1):
         digit = int(line[i])
         if num1 == 9 and num2 == 9:
             return 99
-        if i != n - 1:
-            # print(digit,num1,num2)
-            if num1 < digit:
-                num1 = digit
-                num2 = 0
-                continue
-            if num2 < digit and num1 != digit:
-                num2 = digit
-                continue
-            if num1 == digit:
-                num2 = digit
-                continue
-        else:
-            if num2 < digit:
-                num2 = digit
-                continue
+        if num1 < digit:
+            num1 = digit
+            num2 = 0
+        elif num2 < digit and num1 != digit:
+            num2 = digit
+        elif num1 == digit:
+            num2 = digit
 
-    # returning num1 * 10 + num2 is faster than first converting to string and then converting to int to append the digits
-    return (num1 * 10) + num2
+    digit = int(line[n - 1])
+    if num1 != 9 or num2 != 9:
+        if num2 < digit:
+            num2 = digit
 
+    return num1 * 10 + num2
+    
 total = 0
 
 with open('data/day3/day3.txt', 'r') as f:
