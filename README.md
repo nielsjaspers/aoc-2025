@@ -7,9 +7,9 @@ Since Advent of Code has 12 days this year, we'll use a different language each 
 This repo will be a live repo these weeks, where I'll share my solutions and thoughts on the puzzles. Also, check out [my blog](https://www.nielsjaspers.com/blog/advent-of-code/) for more detailed explanations of my solutions!
 
 > [!NOTE]
->  _CURRENT LANGUAGE: **JAVA**_
+>  _DAY 6 LANGUAGE: **Haskell**_
 >
-> Languages done; PHP, Lua, Python, ~~Zig~~
+> Languages done; PHP, Lua, Python, ~~Zig~~, Java
 
 > [!IMPORTANT]
 > Due to personal reasons and time constraints, I was not able to complete the day 4 solutions in Zig in time.
