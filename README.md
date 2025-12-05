@@ -4,12 +4,16 @@ This README is for my [Advent of Code 2025](https://adventofcode.com/2025) solut
 This year I'm taking on a challenge together with [levi-ivel](https://github.com/levi-ivel).
 Since Advent of Code has 12 days this year, we'll use a different language each day.
 
-This repo will be a live repo these weeks, where I'll share my solutions and thoughts on the puzzles.
+This repo will be a live repo these weeks, where I'll share my solutions and thoughts on the puzzles. Also, check out [my blog](https://www.nielsjaspers.com/blog/advent-of-code/) for more detailed explanations of my solutions!
 
 > [!NOTE]
->  _CURRENT LANGUAGE: **Python**_
+>  _CURRENT LANGUAGE: **JAVA**_
 >
-> Languages done; PHP, Lua
+> Languages done; PHP, Lua, Python, ~~Zig~~
+
+> [!IMPORTANT]
+> Due to personal reasons and time constraints, I was not able to complete the day 4 solutions in Zig in time.
+> I will try and fit these solutions in somewhere in the coming days.
 
 ## 12 Days, 12 Languages
 The plan is as follows:
