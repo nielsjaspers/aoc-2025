@@ -9,11 +9,20 @@ javabench:
 	for i in {1..20}; do java solutions.day5_java.day5_$(arg); done
 
 haskellrun:
-	@if [ -z "$(arg)" ]; then echo "Usage: make haskellrun arg=ClassName"; exit 1; fi
+	@if [ -z "$(arg)" ]; then echo "Usage: make haskellrun arg=part_name"; exit 1; fi
 	ghc solutions/day6_haskell/day6_$(arg).hs -o solutions/day6_haskell/day6_$(arg)
 	./solutions/day6_haskell/day6_$(arg)
 
 haskellbench:
-	@if [ -z "$(arg)" ]; then echo "Usage: make haskellbench arg=ClassName"; exit 1; fi
+	@if [ -z "$(arg)" ]; then echo "Usage: make haskellbench arg=part_name"; exit 1; fi
 	ghc solutions/day6_haskell/day6_$(arg).hs -o solutions/day6_haskell/day6_$(arg)
 	for i in {1..20}; do ./solutions/day6_haskell/day6_$(arg); done
+
+elixirrun:
+	@if [ -z "$(arg)" ]; then echo "Usage: make elixirrun arg=part_name"; exit 1; fi
+	elixir solutions/day7_elixir/day7_$(arg).ex
+
+elixirbench:
+	@if [ -z "$(arg)" ]; then echo "Usage: make elixirbench arg=part_name"; exit 1; fi
+	elixir solutions/day7_elixir/day7_$(arg).ex
+	for i in {1..20}; do elixir solutions/day7_elixir/day7_$(arg).ex; done
