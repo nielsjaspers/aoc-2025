@@ -26,3 +26,10 @@ elixirbench:
 	@if [ -z "$(arg)" ]; then echo "Usage: make elixirbench arg=part_name"; exit 1; fi
 	elixir solutions/day7_elixir/day7_$(arg).ex
 	for i in {1..20}; do elixir solutions/day7_elixir/day7_$(arg).ex; done
+
+gorun:
+	go run solutions/day8_go/cmd/main.go
+
+gobench:
+	go run solutions/day8_go/cmd/main.go
+	for i in {1..20}; do go run solutions/day8_go/cmd/main.go; done
