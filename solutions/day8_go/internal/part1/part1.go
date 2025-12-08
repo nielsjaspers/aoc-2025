@@ -6,6 +6,8 @@ import (
 	"log"
 	"math"
 	"os"
+	"runtime"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -31,7 +33,7 @@ func NewUnionFind(n int) *UnionFind {
 		Parent: make([]int, n),
 		Size:   make([]int, n),
 	}
-	for i := range n {
+	for i := range uf.Parent {
 		uf.Parent[i] = i
 		uf.Size[i] = 1
 	}
@@ -65,19 +67,39 @@ func Part1() {
 	start := time.Now()
 
 	coordinates := readFileAndSplit("data/day8/day8.txt")
+	numWorkers := runtime.NumCPU()
+	edgeChan := make(chan []Edge, numWorkers)
+
+	chunkSize := len(coordinates) / numWorkers
+	for w := range numWorkers {
+		startI := w * chunkSize
+		endI := startI + chunkSize
+		if w == numWorkers-1 {
+			endI = len(coordinates)
+		}
+		go func(start, end int) {
+			localEdges := make([]Edge, 0, (end-start)*(len(coordinates)-start)/2)
+			for i := start; i < end; i++ {
+				for j := i + 1; j < len(coordinates); j++ {
+					dx := coordinates[i].X - coordinates[j].X
+					dy := coordinates[i].Y - coordinates[j].Y
+					dz := coordinates[i].Z - coordinates[j].Z
+					dist := int(math.Sqrt(float64(dx*dx + dy*dy + dz*dz)))
+					localEdges = append(localEdges, Edge{I: i, J: j, Distance: dist})
+				}
+			}
+			edgeChan <- localEdges
+		}(startI, endI)
+	}
+
 	edges := make([]Edge, 0, len(coordinates)*(len(coordinates)-1)/2) // n(n-1)/2 edges => 1000 * 999 / 2 = 499500 edges for 1000 point input
 
-	for i := range len(coordinates) {
-		for j := i + 1; j < len(coordinates); j++ {
-			dx := coordinates[i].X - coordinates[j].X
-			dy := coordinates[i].Y - coordinates[j].Y
-			dz := coordinates[i].Z - coordinates[j].Z
-			dist := math.Sqrt(float64(dx*dx + dy*dy + dz*dz))
-			edges = append(edges, Edge{I: i, J: j, Distance: int(dist)})
-		}
+	for range numWorkers {
+		edges = append(edges, <-edgeChan...)
 	}
-	sort.Slice(edges, func(i, j int) bool {
-		return edges[i].Distance < edges[j].Distance
+
+	slices.SortFunc(edges, func(i, j Edge) int {
+		return i.Distance - j.Distance
 	})
 	uf := NewUnionFind(len(coordinates))
 
