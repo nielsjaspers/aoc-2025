@@ -33,3 +33,11 @@ gorun:
 gobench:
 	go run solutions/day8_go/cmd/main.go
 	for i in {1..20}; do go run solutions/day8_go/cmd/main.go; done
+
+csrun:
+	@if [ -z "$(arg)" ]; then echo "Usage: make csrun arg=part_name"; exit 1; fi
+	dotnet run --project solutions/day9_c#/day9.csproj $(arg)
+
+csbench:
+	@if [ -z "$(arg)" ]; then echo "Usage: make csbench arg=part_name"; exit 1; fi
+	for i in {1..20}; do dotnet run --project solutions/day9_c#/day9.csproj $(arg); done

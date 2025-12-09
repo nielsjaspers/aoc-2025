@@ -5,6 +5,9 @@
 *.o
 *.hi
 
+solutions/day9_c#/obj
+solutions/day9_c#/bin
+
 # executables
 solutions/day6_haskell/day6_part1
 solutions/day6_haskell/day6_part2
