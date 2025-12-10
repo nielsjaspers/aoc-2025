@@ -7,9 +7,9 @@ Since Advent of Code has 12 days this year, we'll use a different language each 
 This repo will be a live repo these weeks, where I'll share my solutions and thoughts on the puzzles. Also, check out [my blog](https://www.nielsjaspers.com/blog/advent-of-code/) for more detailed explanations of my solutions!
 
 > [!NOTE]
->  _DAY 8 LANGUAGE: **Go**_
+>  _DAY 10 LANGUAGE: **C/C++**_
 >
-> Languages done; PHP, Lua, Python, ~~Zig~~, Java, Haskell, Elixir
+> Languages done; PHP, Lua, Python, ~~Zig~~, Java, Haskell, Elixir, Go, C#
 
 ## 12 Days, 12 Languages
 The plan is as follows:
