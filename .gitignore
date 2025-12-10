@@ -11,3 +11,6 @@ solutions/day9_c#/bin
 # executables
 solutions/day6_haskell/day6_part1
 solutions/day6_haskell/day6_part2
+
+# executables c/c++
+solutions/day10_c/day10_main

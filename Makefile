@@ -41,3 +41,13 @@ csrun:
 csbench:
 	@if [ -z "$(arg)" ]; then echo "Usage: make csbench arg=part_name"; exit 1; fi
 	for i in {1..20}; do dotnet run --project solutions/day9_c#/day9.csproj $(arg); done
+
+crun:
+	@if [ -z "$(arg)" ]; then echo "Usage: make crun arg=part_name"; exit 1; fi
+	clang++ solutions/day10_c/main.cpp -o solutions/day10_c/day10_main
+	./solutions/day10_c/day10_main $(arg)
+
+cbench:
+	@if [ -z "$(arg)" ]; then echo "Usage: make cbench arg=part_name"; exit 1; fi
+	clang++ solutions/day10_c/main.cpp -o solutions/day10_c/day10_main
+	for i in {1..20}; do ./solutions/day10_c/day10_main $(arg); done
